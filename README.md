@@ -19,7 +19,7 @@ On Solana, all data is stored in "accounts," similar to a key-value store where 
 
 #### Account Structure
 - **Address**: A unique 32-byte Ed25519 PublicKey.
-> [Important]
+> [!🚨IMPORTANT🚨]
 > The address of a normal account in Solana is a Base58-encoded string of a 256-bit ed25519 public key. Not all bit patterns are valid public keys for the ed25519 curve, so it is possible to ensure user-supplied account 
 > addresses are at least correct ed25519 public keys.
 - **Data**: Byte array storing account state or executable code.
