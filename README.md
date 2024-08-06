@@ -1,4 +1,5 @@
 # Turbin3 Q3 Sol Cohort Portfolio
+![turbin3](https://github.com/user-attachments/assets/ea12e633-30fc-4efa-825f-3e11088d0b2c)
 
 # Solana Notes
 - [Account](#solana-account-model)
