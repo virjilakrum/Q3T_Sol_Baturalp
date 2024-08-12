@@ -127,7 +127,8 @@ pub struct DepositOrWithdrawAccs<'info> {
 
     #[account(
         seeds = [b"vault_state", user.key().as_ref()],
-        bump = vault_state.vault_state_bump
+        bump = vault_state.vault_state_bump,
+        constraint = vault_state.owner == user.key() @ VaultError::Unauthorized
     )]
     pub vault_state: Account<'info, VaultState>,
 
