@@ -99,11 +99,9 @@ pub mod vault {
 
 #[derive(Accounts)]
 pub struct InitializeAccs<'info> {
-    // The signer of the transaction
     #[account(mut)]
     pub user: Signer<'info>,
 
-    // The PDA that will store the state (currently just bumps) for this particular user
     #[account(
         init,
         payer = user,
@@ -113,15 +111,12 @@ pub struct InitializeAccs<'info> {
     )]
     pub vault_state: Account<'info, VaultState>,
 
-    // The PDA that will store the lamports for this particular user
-    // Even though it doesn't exist yet, we don't init it. Because it can be initted when the user deposits into the vault for the first time
     #[account(
         seeds = [b"vault", vault_state.key().as_ref()],
         bump
     )]
     pub vault: SystemAccount<'info>,
 
-    // Needed for creating accounts and transferring lamports
     pub system_program: Program<'info, System>,
 }
 
