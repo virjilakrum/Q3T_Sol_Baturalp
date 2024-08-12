@@ -188,3 +188,21 @@ pub enum VaultError {
     #[msg("Vault is empty")]
     EmptyVault,
 }
+
+#[event]
+pub struct DepositEvent {
+    pub user: Pubkey,
+    pub amount: u64,
+}
+
+#[event]
+pub struct WithdrawEvent {
+    pub user: Pubkey,
+    pub amount: u64,
+}
+
+#[event]
+pub struct CloseEvent {
+    pub user: Pubkey,
+    pub amount: u64,
+}
