@@ -68,6 +68,9 @@ pub mod vault {
     }
 
     pub fn close(ctx: Context<CloseAccs>) -> Result<()> {
+        let amount = ctx.accounts.vault.lamports();
+        require!(amount > 0, VaultError::EmptyVault);
+
         let cpi_program = ctx.accounts.system_program.to_account_info();
         let cpi_accounts = Transfer {
             from: ctx.accounts.vault.to_account_info(),
@@ -83,8 +86,14 @@ pub mod vault {
 
         let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer_seeds);
 
-        let amount = ctx.accounts.vault.lamports();
-        transfer(cpi_ctx, amount)
+        transfer(cpi_ctx, amount)?;
+
+        emit!(CloseEvent {
+            user: ctx.accounts.user.key(),
+            amount,
+        });
+
+        Ok(())
     }
 }
 
