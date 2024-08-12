@@ -16,6 +16,8 @@ pub mod vault {
     }
 
     pub fn deposit(ctx: Context<DepositOrWithdrawAccs>, amount: u64) -> Result<()> {
+        require!(amount > 0, VaultError::InvalidAmount);
+
         let cpi_program = ctx.accounts.system_program.to_account_info();
         let cpi_accounts = Transfer {
             from: ctx.accounts.user.to_account_info(),
@@ -23,7 +25,14 @@ pub mod vault {
         };
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
 
-        transfer(cpi_ctx, amount)
+        transfer(cpi_ctx, amount)?;
+
+        emit!(DepositEvent {
+            user: ctx.accounts.user.key(),
+            amount,
+        });
+
+        Ok(())
     }
 
     pub fn withdraw(ctx: Context<DepositOrWithdrawAccs>, amount: u64) -> Result<()> {
