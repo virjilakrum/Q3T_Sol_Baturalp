@@ -8,9 +8,10 @@ pub mod vault {
     use anchor_lang::system_program::{transfer, Transfer};
 
     pub fn initialize(ctx: Context<InitializeAccs>) -> Result<()> {
-        ctx.accounts.vault_state.vault_state_bump = ctx.bumps.vault_state;
-        ctx.accounts.vault_state.vault_bump = ctx.bumps.vault;
-
+        let vault_state = &mut ctx.accounts.vault_state;
+        vault_state.vault_state_bump = ctx.bumps.vault_state;
+        vault_state.vault_bump = ctx.bumps.vault;
+        vault_state.owner = ctx.accounts.user.key();
         Ok(())
     }
 
