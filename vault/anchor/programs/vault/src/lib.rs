@@ -176,3 +176,15 @@ pub struct VaultState {
 impl Space for VaultState {
     const INIT_SPACE: usize = 8 + 1 + 1 + 32;
 }
+
+#[error_code]
+pub enum VaultError {
+    #[msg("Invalid amount")]
+    InvalidAmount,
+    #[msg("Insufficient funds")]
+    InsufficientFunds,
+    #[msg("Unauthorized")]
+    Unauthorized,
+    #[msg("Vault is empty")]
+    EmptyVault,
+}
