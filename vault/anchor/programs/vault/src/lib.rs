@@ -168,11 +168,11 @@ pub struct CloseAccs<'info> {
 
 #[account]
 pub struct VaultState {
-    // Bump used for creating this (vault state) account
     pub vault_state_bump: u8,
-    // Bump used for creating the account where the lamports are stored
     pub vault_bump: u8,
+    pub owner: Pubkey,
 }
+
 impl Space for VaultState {
-    const INIT_SPACE: usize = 8 + 1 + 1;
+    const INIT_SPACE: usize = 8 + 1 + 1 + 32;
 }
