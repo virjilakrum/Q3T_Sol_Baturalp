@@ -1,33 +1,27 @@
 use anchor_lang::prelude::*;
-
 pub mod contexts;
 pub use contexts::*;
-
 pub mod state;
 
-declare_id!("DiGxbunBs6DojD9ns1J9vc8Z6YkYPYcocG2xAJpm4dnz");
+declare_id!("FTyBtbmmdwLvGXUsJSJqRQkkPpL63L5yLjSakJGrvvYZ");
 
 #[program]
 pub mod amm {
     use super::*;
 
-    // Ensures initialization of config and LP mint accounts
     pub fn initialize_step_1(ctx: Context<InitializeStep1>, seed: u64, fee: u16) -> Result<()> {
         ctx.accounts
             .complete_init_step_1(seed, fee, ctx.bumps.config, ctx.bumps.mint_lp)
     }
 
-    // Ensures initialization of vault_x and vault_y accounts
     pub fn initialize_step_2(ctx: Context<InitializeStep2>) -> Result<()> {
         ctx.accounts.complete_init_step_2()
     }
 
-    // Ensures initialization of maker_ata_x, maker_ata_y and maker_ata_lp accounts
     pub fn initialize_step_3(ctx: Context<InitializeStep3>) -> Result<()> {
         ctx.accounts.complete_init_step_3()
     }
 
-    // Ensures initial liquidity and finishes initialization
     pub fn initialize_step_4(
         ctx: Context<InitializeStep4>,
         amount_x: u64,
