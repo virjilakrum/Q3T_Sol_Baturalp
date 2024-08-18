@@ -19,8 +19,8 @@ On Solana, all data is stored in "accounts," similar to a key-value store where 
 
 #### Account Structure
 - **Address**: A unique 32-byte Ed25519 PublicKey.
-  
-> The address of a normal account in Solana is a Base58-encoded string of a 256-bit ed25519 public key. Not all bit patterns are valid public keys for the ed25519 curve, so it is possible to ensure user-supplied account 
+
+> The address of a normal account in Solana is a Base58-encoded string of a 256-bit ed25519 public key. Not all bit patterns are valid public keys for the ed25519 curve, so it is possible to ensure user-supplied account
 > addresses are at least correct ed25519 public keys.
 - **Data**: Byte array storing account state or executable code.
 - **Executable**: Flag indicating if the account is a program.
@@ -46,7 +46,7 @@ On Solana, all data is stored in "accounts," similar to a key-value store where 
   - Assigns program ownership.
   - Manages wallet accounts.
 
-- **BPF Loader Program**: 
+- **BPF Loader Program**:
   - Deploys, upgrades, and executes custom programs.
 
 #### Custom Programs (Smart Contracts)
@@ -57,6 +57,27 @@ On Solana, all data is stored in "accounts," similar to a key-value store where 
 #### Creating Data Accounts
 1. **System Program**: Creates the account and transfers ownership.
 2. **Custom Program**: Initializes account data.
+
+
+#### Primitive II: Automated Market Makers — AMM
+
+**Objectives:** 24/7 Liquidity | Stable Buy & Sell Spreads | Transparent & Universal MM Incentives
+--------------------------------------------------------------------------------------------------
+
+The scope of Uniswap Labs’ first working AMM model (**K = x\*y**) cannot be understated in the history of DeFi, as **the working application of liquidity pools instantaneously made standalone orderbook DEXes, on both Ethereum (Etherdelta, IDEX) and other chains (Bitshares, Waves, Cryptobridge) obsolete, almost overnight.** Uniswap was a truly revolutionary addition to the future of DeFi, and demonstrated the legitimacy and potential of the DEX/AMM financial primitive as the bedrock for transparent, trustless commerce. Solana’s current DEX/AMM infrastructure and prospective DeFi product suite stands on the shoulders of invaluable contributions by the Ethereum Foundation, Uniswap Labs, & the greater DeFi community.
+
+Solana’s high-throughput, low-latency, processing capabilities provide the means for a **vast suite of sophisticated AMM applications for decentralized operations, such as high-frequency trading, central limit order books(CLOB), derivatives, cloud computing, and cloud storage.** These financial instruments and Web3 interfaces are rapidly being built on Solana, with **seamless scaling to support over 1 billion user accounts on a single state machine.**
+
+**Solana DEX/AMM Suite I: Raydium**
+===================================
+
+Raydium is an on-chain order book and automated market maker (AMM) that enables **lightning-fast trades, shared liquidity and new features for earning yield.** Initially offered as a standalone DEX/AMM product, Raydium offers a suite of services to its users such as **launchpads, accelerators, and yield farming.**
+
+**Note**: Currently, there are two supported operations for trading on Raydium. Users can transact through the Orderbook (Trading tab) or through the AMM (Swap tab).
+
+Documentation: [https://raydium.gitbook.io/raydium/
+](https://raydium.gitbook.io/raydium/)How to use Raydium: [https://raydium.gitbook.io/raydium/](https://raydium.gitbook.io/raydium/)
+
 
 ## Turbin3 Prerequisites and Projects on Solana Devnet
 
