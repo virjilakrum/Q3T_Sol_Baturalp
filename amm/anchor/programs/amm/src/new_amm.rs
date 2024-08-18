@@ -298,3 +298,21 @@ pub struct Config {
     pub paused: bool,
     pub whitelist: HashMap<Pubkey, bool>,
 }
+
+impl Config {
+    pub const LEN: usize = 8 + 32 + 2 + 32 + 1 + 32; // Approximate size
+}
+
+#[error_code]
+pub enum ErrorCode {
+    #[msg("The provided fee is invalid")]
+    InvalidFee,
+    #[msg("Slippage tolerance exceeded")]
+    SlippageExceeded,
+    #[msg("The contract is paused")]
+    ContractPaused,
+    #[msg("The transaction has expired")]
+    TransactionExpired,
+    #[msg("Insufficient liquidity")]
+    InsufficientLiquidity,
+}
