@@ -197,3 +197,104 @@ pub mod amm {
         Ok(price)
     }
 }
+#[derive(Accounts)]
+pub struct Initialize<'info> {
+    #[account(init, payer = payer, space = 8 + Config::LEN, seeds = [b"config", seed.to_le_bytes().as_ref()], bump)]
+    pub config: Account<'info, Config>,
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct AddLiquidity<'info> {
+    #[account(mut)]
+    pub config: Account<'info, Config>,
+    #[account(mut)]
+    pub pool_x: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub pool_y: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_x: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_y: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_lp: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub lp_mint: Account<'info, Mint>,
+    pub user: Signer<'info>,
+    pub token_program: Program<'info, Token>,
+}
+
+#[derive(Accounts)]
+pub struct RemoveLiquidity<'info> {
+    #[account(mut)]
+    pub config: Account<'info, Config>,
+    #[account(mut)]
+    pub pool_x: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub pool_y: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_x: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_y: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_lp: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub lp_mint: Account<'info, Mint>,
+    pub user: Signer<'info>,
+    pub token_program: Program<'info, Token>,
+}
+
+#[derive(Accounts)]
+pub struct Swap<'info> {
+    #[account(mut)]
+    pub config: Account<'info, Config>,
+    #[account(mut)]
+    pub pool_x: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub pool_y: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_x: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub user_y: Account<'info, TokenAccount>,
+    pub user: Signer<'info>,
+    pub token_program: Program<'info, Token>,
+}
+
+#[derive(Accounts)]
+pub struct UpdateFee<'info> {
+    #[account(mut, has_one = emergency_owner)]
+    pub config: Account<'info, Config>,
+    pub emergency_owner: Signer<'info>,
+}
+
+#[derive(Accounts)]
+pub struct TogglePause<'info> {
+    #[account(mut, has_one = emergency_owner)]
+    pub config: Account<'info, Config>,
+    pub emergency_owner: Signer<'info>,
+}
+
+#[derive(Accounts)]
+pub struct UpdateWhitelist<'info> {
+    #[account(mut, has_one = emergency_owner)]
+    pub config: Account<'info, Config>,
+    pub emergency_owner: Signer<'info>,
+}
+
+#[derive(Accounts)]
+pub struct GetPrice<'info> {
+    pub config: Account<'info, Config>,
+    pub pool_x: Account<'info, TokenAccount>,
+    pub pool_y: Account<'info, TokenAccount>,
+}
+
+#[account]
+pub struct Config {
+    pub seed: u64,
+    pub fee: u16,
+    pub emergency_owner: Pubkey,
+    pub paused: bool,
+    pub whitelist: HashMap<Pubkey, bool>,
+}
