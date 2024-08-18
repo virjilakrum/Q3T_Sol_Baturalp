@@ -362,3 +362,37 @@ pub struct WhitelistUpdated {
 pub struct PriceQueried {
     pub price: u64,
 }
+
+// Helper functions
+
+fn calculate_liquidity_amounts(
+    amount_x: u64,
+    amount_y: u64,
+    reserve_x: u64,
+    reserve_y: u64,
+    total_supply: u64,
+) -> Result<(u64, u64, u64)> {
+    if total_supply == 0 {
+        Ok((amount_x.min(amount_y), amount_x, amount_y))
+    } else {
+        let lp_x = (amount_x as u128).checked_mul(total_supply as u128).unwrap() / reserve_x as u128;
+        let lp_y = (amount_y as u128).checked_mul(total_supply as u128).unwrap() / reserve_y as u128;
+        let lp_to_mint = lp_x.min(lp_y) as u64;
+        let x_to_deposit = (lp_to_mint as u128).checked_mul(reserve_x as u128).unwrap() / total_supply as u128;
+        let y_to_deposit = (lp_to_mint as u128).checked_mul(reserve_y as u128).unwrap() / total_supply as u128;
+        Ok((lp_to_mint, x_to_deposit as u64, y_to_deposit as u64))
+    }
+}
+
+fn calculate_withdrawal_amounts(
+    lp_amount: u64,
+    reserve_x: u64,
+    reserve_y: u64,
+    total_supply: u64,
+) -> Result<(u64, u64)> {
+    let x_to_withdraw = (lp_amount as u128).checked_mul(reserve_x as u128).unwrap() / total_supply as u128;
+    let y_to_withdraw = (lp_amount as u128).checked_mul(reserve_y as u128).unwrap() / total_supply as u128;
+    Ok((x_to_withdraw as u64, y_to_withdraw as u64))
+}
+
+fn calculate_swap
