@@ -316,3 +316,49 @@ pub enum ErrorCode {
     #[msg("Insufficient liquidity")]
     InsufficientLiquidity,
 }
+
+#[event]
+pub struct LiquidityAdded {
+    pub user: Pubkey,
+    pub amount_x: u64,
+    pub amount_y: u64,
+    pub lp_minted: u64,
+}
+
+#[event]
+pub struct LiquidityRemoved {
+    pub user: Pubkey,
+    pub amount_x: u64,
+    pub amount_y: u64,
+    pub lp_burned: u64,
+}
+
+#[event]
+pub struct Swapped {
+    pub user: Pubkey,
+    pub amount_in: u64,
+    pub amount_out: u64,
+    pub is_x_to_y: bool,
+    pub fee: u64,
+}
+
+#[event]
+pub struct FeeUpdated {
+    pub new_fee: u16,
+}
+
+#[event]
+pub struct PauseToggled {
+    pub paused: bool,
+}
+
+#[event]
+pub struct WhitelistUpdated {
+    pub token: Pubkey,
+    pub is_whitelisted: bool,
+}
+
+#[event]
+pub struct PriceQueried {
+    pub price: u64,
+}
