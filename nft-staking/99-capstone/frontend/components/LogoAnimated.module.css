@@ -1,0 +1,63 @@
+.zero {
+  z-index: 0;
+  color: white;
+  animation: zero 2s ease infinite;
+  animation-delay: 500ms;
+}
+
+.one {
+  z-index: -1;
+  color: #9945ff;
+  animation: one 2s ease infinite;
+  animation-delay: 500ms;
+  position: absolute;
+  inset: 0;
+}
+
+.two {
+  z-index: -2;
+  color: #14f195;
+  animation: two 2s ease infinite;
+  animation-delay: 500ms;
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes zero {
+  0%,
+  80% {
+    transform: none;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+  }
+  25%,
+  55% {
+    transform: rotateX(30deg) rotateY(-15deg);
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+  }
+}
+
+@keyframes one {
+  0%,
+  80% {
+    transform: none;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+  }
+  25%,
+  55% {
+    transform: translateX(20px) translateY(20px) rotateX(30deg) rotateY(-15deg);
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+  }
+}
+
+@keyframes two {
+  0%,
+  80% {
+    transform: none;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+  }
+  25%,
+  55% {
+    transform: translateX(40px) translateY(40px) rotateX(30deg) rotateY(-15deg);
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+  }
+}
